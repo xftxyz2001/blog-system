@@ -1,13 +1,17 @@
 package com.xftxyz.blogsystem.controller;
 
-import com.xftxyz.blogsystem.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.xftxyz.blogsystem.controller.utils.R;
+import com.xftxyz.blogsystem.controller.utils.Util;
 import com.xftxyz.blogsystem.jb.User;
 import com.xftxyz.blogsystem.service.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Random;
+import com.xftxyz.blogsystem.service.UserService;
 
 @RestController
 // @Api(value = "注册接口",tags = {"注册接口"})
@@ -49,16 +53,8 @@ public class RegisterController {
     // @ApiOperation(value = "邮箱验证码",notes = "邮箱验证码")
     @GetMapping("/ConfirmCode")
     public R ConfirmCodeSend(@RequestParam String email) {
-        Random r = new Random();
-        int randomNum = r.nextInt(9) + 1;
-        int temp = 0;
-        for (int i = 0; i < 6; i++) {
-            temp = temp * 10 + randomNum;
-            randomNum = r.nextInt(9) + 1;
-        }
-        content = content + temp;
-        mailService.sendSimpleMail(email, subject, content);
-        content = "220博客系统 您的验证码:";
-        return R.ok(temp);
+        String code = Util.getCode();
+        mailService.sendSimpleMail(email, subject, content + code);
+        return R.ok(code);
     }
 }
