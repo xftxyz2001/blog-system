@@ -1,4 +1,4 @@
-package com.xftxyz.blogsystem.utils;
+package com.xftxyz.blogsystem.controller.utils;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package com.xftxyz.blogsystem.utils;
+package com.xftxyz.blogsystem.controller.utils;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
