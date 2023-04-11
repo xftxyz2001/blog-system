@@ -3,8 +3,8 @@ package com.xftxyz.blogsystem.jb;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 
 import lombok.Data;
 
@@ -18,13 +18,15 @@ public class Collect implements Serializable {
     /**
      * 用户id
      */
-    @TableId(value = "uid")
+    @TableField(value = "uid")
+    @MppMultiId
     private Integer uid;
 
     /**
      * 博客id
      */
-    @TableId(value = "bid")
+    @TableField(value = "bid")
+    @MppMultiId
     private Integer bid;
 
     @TableField(exist = false)

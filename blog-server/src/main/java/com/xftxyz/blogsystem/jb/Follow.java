@@ -3,8 +3,8 @@ package com.xftxyz.blogsystem.jb;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 
 import lombok.Data;
 
@@ -18,13 +18,15 @@ public class Follow implements Serializable {
     /**
      * 用户id
      */
-    @TableId(value = "uid_self")
+    @TableField(value = "uid_self")
+    @MppMultiId
     private Integer uidSelf;
 
     /**
      * 关注用户id
      */
-    @TableId(value = "uid_follow")
+    @TableField(value = "uid_follow")
+    @MppMultiId
     private Integer uidFollow;
 
     @TableField(exist = false)

@@ -1,7 +1,9 @@
 package com.xftxyz.blogsystem.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import com.github.jeffreyning.mybatisplus.base.MppBaseMapper;
 import com.xftxyz.blogsystem.jb.Collect;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author 25810
@@ -9,7 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-04-11 13:52:37
 * @Entity com.xftxyz.blogsystem.jb.Collect
 */
-public interface CollectMapper extends BaseMapper<Collect> {
+@Mapper
+public interface CollectMapper extends MppBaseMapper<Collect> {
 
 }
 

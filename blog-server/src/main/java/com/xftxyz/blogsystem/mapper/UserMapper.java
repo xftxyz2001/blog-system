@@ -1,7 +1,9 @@
 package com.xftxyz.blogsystem.mapper;
 
-import com.xftxyz.blogsystem.jb.User;
+import org.apache.ibatis.annotations.Mapper;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xftxyz.blogsystem.jb.User;
 
 /**
 * @author 25810
@@ -9,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-04-11 13:52:37
 * @Entity com.xftxyz.blogsystem.jb.User
 */
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
 }
