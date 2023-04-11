@@ -16,4 +16,12 @@
         uid,uname,pwd,
         email,phone
     </sql>
+    <select id="selectByUnameAndPwd" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where
+        uname = #{uname,jdbcType=VARCHAR}
+        AND pwd = #{pwd,jdbcType=VARCHAR}
+    </select>
 </mapper>
