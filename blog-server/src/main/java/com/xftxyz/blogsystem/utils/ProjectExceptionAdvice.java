@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ProjectExceptionAdvice {
 
-@ExceptionHandler(Exception.class)
-public R doException(Exception ex) {
+    @ExceptionHandler(Exception.class)
+    public R doException(Exception ex) {
 
-ex.printStackTrace();
-return R.error("服务器故障,请稍后重试!");
-}
+        ex.printStackTrace();
+        return R.error("服务器故障,请稍后重试!");
+    }
 }
