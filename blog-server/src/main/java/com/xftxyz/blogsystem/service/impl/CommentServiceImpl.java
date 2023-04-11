@@ -7,16 +7,12 @@ import com.xftxyz.blogsystem.mapper.CommentMapper;
 import org.springframework.stereotype.Service;
 
 /**
-* @author 25810
-* @description 针对表【t_comment】的数据库操作Service实现
-* @createDate 2023-04-11 13:52:37
-*/
+ * @author 25810
+ * @description 针对表【t_comment】的数据库操作Service实现
+ * @createDate 2023-04-11 13:52:37
+ */
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
-    implements CommentService{
+        implements CommentService {
 
 }
-
-
-
-

@@ -1,7 +1,7 @@
 package com.xftxyz.blogsystem.service;
 
-import com.xftxyz.blogsystem.jb.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xftxyz.blogsystem.jb.User;
 
 /**
  * @author 25810

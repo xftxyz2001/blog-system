@@ -7,16 +7,12 @@ import com.xftxyz.blogsystem.mapper.CollectMapper;
 import org.springframework.stereotype.Service;
 
 /**
-* @author 25810
-* @description 针对表【t_collect】的数据库操作Service实现
-* @createDate 2023-04-11 13:52:37
-*/
+ * @author 25810
+ * @description 针对表【t_collect】的数据库操作Service实现
+ * @createDate 2023-04-11 13:52:37
+ */
 @Service
 public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect>
-    implements CollectService{
+        implements CollectService {
 
 }
-
-
-
-
