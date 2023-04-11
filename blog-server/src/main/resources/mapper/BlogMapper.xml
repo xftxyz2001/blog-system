@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xftxyz.blogsystem.mapper.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.xftxyz.blogsystem.jb.Blog">
+            <id property="bid" column="bid" jdbcType="INTEGER"/>
+            <result property="uid" column="uid" jdbcType="INTEGER"/>
+            <result property="bno" column="bno" jdbcType="INTEGER"/>
+            <result property="btitle" column="btitle" jdbcType="VARCHAR"/>
+            <result property="bcontent" column="bcontent" jdbcType="VARCHAR"/>
+            <result property="bpublished" column="bpublished" jdbcType="BIT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="goodnum" column="goodNum" jdbcType="INTEGER"/>
+            <result property="collectnum" column="collectNum" jdbcType="INTEGER"/>
+            <result property="state" column="state" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bid,uid,bno,
+        btitle,bcontent,bpublished,
+        create_time,update_time,goodNum,
+        collectNum,state
+    </sql>
+</mapper>
