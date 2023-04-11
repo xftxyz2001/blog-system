@@ -1,11 +1,13 @@
 package com.xftxyz.blogsystem.jb;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -18,7 +20,7 @@ public class Blog implements Serializable {
     /**
      * 博客id
      */
-    @TableId(value = "bid")
+    @TableId(value = "bid", type = IdType.AUTO)
     private Integer bid;
 
     /**

@@ -1,1 +1,54 @@
+server:
+  port: 8081
 
+spring:
+  #数据库连接配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blogsystem?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 20MB
+#   mvc:
+#     pathmatch:
+#       matching-strategy: ant_path_matcher
+
+  mail:
+    # 邮件服务地址
+    host: smtp.163.com
+    # 默认端口25,可不写
+    port: 25
+    # 编码格式
+    default-encoding: utf-8
+    # 发送者用户名
+    username: jsxwysda@163.com
+    # 授权码
+    password: NAHVHIMQYECIBWJZ
+    # 其它参数
+    #    properties:
+    #      mail:
+    #        smtp:
+    #          # 如果是用 SSL 方式，需要配置如下属性
+    #          ssl:
+    #            enable: true
+    #            required: true
+    #          # 邮件接收时间的限制，单位毫秒
+    #          timeout: 10000
+    #          # 连接时间的限制，单位毫秒
+    #          connectiontimeout: 10000
+    #          # 邮件发送时间的限制，单位毫秒
+    #          writetimeout: 10000
+
+#mybatis的相关配置
+mybatis-plus:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      id-type: auto
