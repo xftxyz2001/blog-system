@@ -3,6 +3,9 @@ package com.xftxyz.blogsystem.controller.utils;
 import java.util.Random;
 
 public class Util {
+    public static final String SESSION_USER = "user";
+    public static final String PASSWORD_MASK = "******";
+    
     public static String getCode() {
         Random r = new Random();
         int randomNum = r.nextInt(9) + 1;
