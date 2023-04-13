@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blogsystem?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
-    password: 123456
+    password: tfrhEh6sHzXJemkJ
   servlet:
     multipart:
       max-file-size: 5MB
