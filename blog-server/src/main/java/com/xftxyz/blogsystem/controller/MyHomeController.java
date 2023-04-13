@@ -23,7 +23,7 @@ import com.xftxyz.blogsystem.service.FollowService;
 import com.xftxyz.blogsystem.service.UserService;
 
 @RestController
-// @Api(value = "个人主页", tags = "个人主页")
+//(value = "个人主页", tags = "个人主页")
 @RequestMapping("/myHome")
 public class MyHomeController {
 
@@ -36,61 +36,63 @@ public class MyHomeController {
     @Autowired
     FollowService followService;
 
+    // TODO: 2023/4/13 未完成
+
     @GetMapping("/getUserInfo")
-    // @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
-    public R getUser(@RequestParam int uid) {
+    //Operation(value = "获取用户信息", notes = "获取用户信息")
+    public R<Object> getUser(@RequestParam int uid) {
         return R.ok(userService.getById(uid));
     }
 
     @GetMapping("/getUserBlog")
-    // @ApiOperation(value = "获取用户blog", notes = "获取用户blog")
-    public R getUserBlog(@RequestParam int uid) {
+    //Operation(value = "获取用户blog", notes = "获取用户blog")
+    public R<Object> getUserBlog(@RequestParam int uid) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", uid);
         return R.ok(blogService.listByMap(map));
     }
 
     @DeleteMapping("deletBlogOne")
-    // @ApiOperation(value = "删除指定博客", notes = "删除指定博客")
-    public R deleteBlogOne(@RequestParam int bid) {
+    //Operation(value = "删除指定博客", notes = "删除指定博客")
+    public R<Object> deleteBlogOne(@RequestParam int bid) {
         boolean flag = blogService.removeById(bid);
         return flag ? R.ok("删除成功") : R.error("删除失败");
     }
 
     @GetMapping("/getComment")
-    // @ApiOperation(value = "获取博客评论", notes = "获取博客评论")
-    public R getComment(@RequestParam int bid) {
+    //Operation(value = "获取博客评论", notes = "获取博客评论")
+    public R<Object> getComment(@RequestParam int bid) {
         Map<String, Object> map = new HashMap<>();
         map.put("bid", bid);
         return R.ok(commentService.listByMap(map));
     }
 
     @DeleteMapping("/deleteComment")
-    // @ApiOperation(value = "删除指定评论", notes = "删除指定评论")
-    public R deleteComment(@RequestParam int cid) {
+    //Operation(value = "删除指定评论", notes = "删除指定评论")
+    public R<Object> deleteComment(@RequestParam int cid) {
         boolean flag = commentService.removeById(cid);
         return flag ? R.ok("删除成功") : R.error("删除失败");
     }
 
     @GetMapping("/getFollow")
-    // @ApiOperation(value = "获取关注列表", notes = "获取关注列表")
-    public R getFollow(@RequestParam int uid) {
+    //Operation(value = "获取关注列表", notes = "获取关注列表")
+    public R<Object> getFollow(@RequestParam int uid) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid_self", uid);
         return R.ok(followService.listByMap(map));
     }
 
     @GetMapping("/getFans")
-    // @ApiOperation(value = "获取粉丝列表", notes = "获取粉丝列表")
-    public R getFans(@RequestParam int uid) {
+    //Operation(value = "获取粉丝列表", notes = "获取粉丝列表")
+    public R<Object> getFans(@RequestParam int uid) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid_follow", uid);
         return R.ok(followService.listByMap(map));
     }
 
     @DeleteMapping("/deleteFollow")
-    // @ApiOperation("取消关注")
-    public R cancelFollow(@RequestParam int uid, @RequestParam int fid) {
+    //Operation("取消关注")
+    public R<Object> cancelFollow(@RequestParam int uid, @RequestParam int fid) {
         QueryWrapper<Follow> queryWrapper = new QueryWrapper<>();
         queryWrapper.ge("uid_self", uid).ge("uid_follow", fid);
         boolean flag = followService.remove(queryWrapper);
@@ -98,14 +100,14 @@ public class MyHomeController {
     }
 
     @PostMapping("/addBlog")
-    // @ApiOperation("新增博客")
-    // public R create_blog(@RequestParam int uid, @RequestParam int bno,
+    //Operation("新增博客")
+    // public R<Object> create_blog(@RequestParam int uid, @RequestParam int bno,
     // @RequestParam String btitle,
     // @RequestParam String bcontent, @RequestParam boolean bpublished,
     // @RequestParam Timestamp create_time,
     // @RequestParam int goodNum, @RequestParam int collectNum,
     // @RequestParam boolean state) {
-    public R create_blog(@RequestBody Blog blog) {
+    public R<Object> create_blog(@RequestBody Blog blog) {
         // Blog blog = new Blog(uid, bno, btitle, bcontent, bpublished, create_time,
         // goodNum, collectNum, state);
         boolean flag = blogService.save(blog);
@@ -113,8 +115,8 @@ public class MyHomeController {
     }
 
     @PostMapping("/updateInfo")
-    // @ApiOperation("修改个人信息")
-    public R updateInfo(@RequestParam int uid, @RequestParam String name,
+    //Operation("修改个人信息")
+    public R<Object> updateInfo(@RequestParam int uid, @RequestParam String name,
             @RequestParam String pwd, @RequestParam String email,
             @RequestParam String phone) {
         User user = userService.getById(uid);

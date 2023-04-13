@@ -18,13 +18,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xftxyz.blogsystem.controller.utils.R;
+import com.xftxyz.blogsystem.controller.utils.Util;
 import com.xftxyz.blogsystem.jb.Communicate;
 import com.xftxyz.blogsystem.service.CommunicateService;
 
 import lombok.Data;
 
+/**
+ * 私聊界面接口
+ */
 @RestController
-// @Api(value = "私聊界面接口", tags = "私聊界面接口")
 public class ChatController {
     @Autowired
     CommunicateService communicateService;
@@ -32,9 +35,15 @@ public class ChatController {
     QueryWrapper<Communicate> wrapper;
     UpdateWrapper<Communicate> updateWrapper;
 
-    // @ApiOperation(value = "获取历史记录", notes = "获取两个用户之前的消息记录(uid1 < uid2)")
+    /**
+     * 获取两个用户之前的消息记录(uid1 < uid2)
+     * 
+     * @param uid1
+     * @param uid2
+     * @return
+     */
     @GetMapping("/getAllMsg")
-    public R getAllMsg(@RequestParam int uid1, @RequestParam int uid2) {
+    public R<Object> getAllMsg(@RequestParam int uid1, @RequestParam int uid2) {
         wrapper = Wrappers.query();
         wrapper.eq("uid1", uid1).eq("uid2", uid2);
         Communicate cmu = communicateService.getOne(wrapper);
@@ -53,14 +62,29 @@ public class ChatController {
 
     }
 
-    // @ApiOperation(value = "插入新消息", notes = "插入新消息(uid1 < uid2)")
+    /**
+     * 插入新消息(uid1 < uid2)
+     * 
+     * @param uid1
+     * @param uid2
+     * @param text
+     * @return
+     */
     @PostMapping("/addNewMsg")
     public boolean addNewMsg(@RequestParam int uid1, @RequestParam int uid2, @RequestParam String text) {
-        String s = hideRude(text);
+        String s = Util.maskSensitiveWords(text);
         return addMsg(uid1, uid2, s, uid1 < uid2 ? 0 : 1, 0, null);
     }
 
-    // @ApiOperation(value = "图片消息接口", notes = "添加用户图片消息")
+    /**
+     * 添加用户图片消息
+     * 
+     * @param uid1
+     * @param uid2
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/addNewImage")
     public boolean addNewImage(@RequestParam int uid1, @RequestParam int uid2,
             @RequestParam(value = "file") MultipartFile multipartFile) throws IOException {
@@ -70,7 +94,7 @@ public class ChatController {
         // return text.getBytes(ISO_8859_1);
     }
 
-    public boolean addMsg(int uid1, int uid2, String text, int sender, int type, byte[] file) {
+    private boolean addMsg(int uid1, int uid2, String text, int sender, int type, byte[] file) {
         wrapper = Wrappers.query();
         wrapper.eq("uid1", uid1 > uid2 ? uid2 : uid1).eq("uid2", uid1 > uid2 ? uid1 : uid2);
         Communicate cmu = communicateService.getOne(wrapper);
@@ -94,8 +118,7 @@ public class ChatController {
             } else {
                 msg.add(new Message(text, sender, type, file));
                 // TODO: 这里在干什么？
-                // cmu = new Communicate(mapper.writeValueAsString(msg), uid1 > uid2 ? uid2 : uid1,
-                //         uid1 > uid2 ? uid1 : uid2);
+                // cmu = new Communicate(mapper.writeValueAsString(msg), uid1 > uid2 ? uid2 : uid1, uid1 > uid2 ? uid1 : uid2);
                 if (communicateService.save(cmu))
                     success = true;
             }
@@ -106,14 +129,6 @@ public class ChatController {
         return success;
     }
 
-    public String hideRude(String text) {
-        String temp = text;
-        String[] illegal = { "你妈", "傻逼", "煞笔", "沙比", "骚逼", "烧杯", "尼玛", "sb", "Sb", "SB", "sB", "tmd", "TMD" };
-        for (String s : illegal) {
-            temp = temp.replace(s, "***");
-        }
-        return temp;
-    }
 }
 
 @Data
