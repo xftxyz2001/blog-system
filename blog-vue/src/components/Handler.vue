@@ -2,7 +2,7 @@
     <header class="Handler" style="background-color: white">
         <div class="header-fixed">
             <div class="header-inner">
-                <a href="javascript:void(0)" class="header-logo" id="logo">CSDN</a>
+                <a href="javascript:void(0)" class="header-logo" id="logo">BLOG</a>
                 <nav class="nav" id="nav">
                     <ul>
                         <li><a href='http://localhost:8080/#/' >首页</a></li>

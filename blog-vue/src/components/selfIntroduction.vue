@@ -1,333 +1,229 @@
 <template>
-  <el-header>
-    <div id="login">
-      <Handler id="handler"></Handler>
-    </div>
-  </el-header>
-    <el-container class="layout-container-demo" style="height: 982px ; width : 2114px">
-        <el-aside width="200px">
-            <el-scrollbar>
-                <el-menu :default-openeds="['1', '2', '3']">
-                    <el-sub-menu index="1">
-                        <template #title>
-                            <el-icon><message /></el-icon>发布博客管理
-                        </template>
-                        <el-menu-item-group>
-                            <template #title class="group">Group 1</template>
-                            <el-menu-item index="1-1" @click = "edit">编辑博客</el-menu-item>
-                            <el-menu-item index="1-2" @click = "review">审核中博客</el-menu-item>
-                            <el-menu-item index="1-3" @click = "published">已发布博客管理</el-menu-item>
-                        </el-menu-item-group>
-                    </el-sub-menu>
-                    <el-sub-menu index="2">
-                        <template #title>
-                            <el-icon></el-icon>个人信息管理
-                        </template>
-                        <el-menu-item-group>
-                            <template #title class="group">Group 1</template>
-                            <el-menu-item index="2-1" @click = "selfIntroduction">个人简介</el-menu-item>
-                            <el-menu-item index="2-2" @click = "collect">收藏博客</el-menu-item>
-                        </el-menu-item-group>
-                    </el-sub-menu>
-                    <el-sub-menu index="3">
-                        <template #title>
-                            <el-icon><setting /></el-icon>个人好友管理
-                        </template>
-                        <el-menu-item-group>
-                            <template #title class="group">Group 1</template>
-                            <el-menu-item index="3-1" @click = "friendinfo">好友信息</el-menu-item>
-                        </el-menu-item-group>
-                    </el-sub-menu>
-                </el-menu>
-            </el-scrollbar>
-        </el-aside>
+  <el-container class="asd1">
+    <el-header style="background-color: rgba(107,195,13,0)">
+      <div id="login">
+        <Handler id="handler"></Handler>
+      </div>
+    </el-header>
+    <el-main class="main">
+      <el-container class="main" >
+        <el-header class="selfIntroduction">
+          <el-row>
+            <el-col span="650px"><el-avatar :size= "100" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar></el-col>
+            &nbsp&nbsp
+            <el-col span="650px" style="font-size: 30px;padding-top:15px;padding-left: 12px">
 
-        <el-container>
-            <el-header style="text-align: right; font-size: 12px">
-                <div class="toolbar">
-                    <el-dropdown>
-                        <el-button>张三</el-button>
-                        <template #dropdown>
-                            <el-dropdown-menu>
-                                <el-dropdown-item @click = "selfIntroduction">个人中心</el-dropdown-item>
-                                <el-dropdown-item>博客主页</el-dropdown-item>
-                                <el-dropdown-item>登出</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </template>
-                    </el-dropdown>
-                </div>
+              {{ userName }}<span style="font-size: 20px">&nbsp&nbsp加入本博客日期:&nbsp{{registerDate}}</span>
+              <span class="toolbar">
+                                <el-button style="font-size: 20px;text-align: center;background-color: #c9c9c9;" v-if="isMyself" @click="settings">设置</el-button>
+                                <el-button style="font-size: 20px;text-align: center;background-color: #c9c9c9;" v-else @click="attention">关注</el-button>
+                                <el-dropdown style="justify-content: center;padding-left: 35px">
+                                    <el-button style="font-size: 30px;text-align: center;background-color: #c9c9c9;">...</el-button>
+                                    <template #dropdown>
+                                        <!--这里要进行windows.local与本uid进行比对，若相同显示1菜单，不同说明访问的是别人的主页显示2菜单-->
+                                      <!--1菜单-->
+                                        <el-dropdown-menu v-if="isMyself">
+                                            <el-dropdown-item  @click="a1">编辑资料</el-dropdown-item>
+                                            <el-dropdown-item @click="exit">登出系统</el-dropdown-item>
+                                        </el-dropdown-menu>
+                                        <el-dropdown-menu v-else>
+                                            <el-dropdown-item @click="a2">私聊</el-dropdown-item>
+                                            <el-dropdown-item>提问</el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </template>
+                                </el-dropdown>
+                            </span>
+              <div style="padding-top: 9px">
+                                <span style="font-size: 35px">
+                                    |&nbsp&nbsp
+                                </span>
+                <span style="font-size: 25px">原创&nbsp&nbsp:&nbsp&nbsp{{articalNum}}篇</span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp|
+                                </span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp
+                                </span>
+                <span style="font-size: 25px">活跃天数&nbsp&nbsp:&nbsp&nbsp{{activeDay}}天</span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp|
+                                </span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp
+                                </span>
+                <span style="font-size: 25px">粉丝数&nbsp&nbsp:&nbsp&nbsp{{fansNum}}</span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp|
+                                </span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp
+                                </span>
+                <span style="font-size: 25px">总访问量&nbsp&nbsp:&nbsp&nbsp{{watchNum}}</span>
+                <span style="font-size: 35px">
+                                    &nbsp&nbsp|
+                                </span>
+              </div>
+              <el-row>
+                <div style="font-size: 20px;padding-top: 10px">博客简介:&nbsp这是{{userName}}的博客</div>
+              </el-row>
+            </el-col>
+          </el-row>
+        </el-header>
+        <el-aside width="500px" height="500px">123</el-aside>
+        <el-main class="main2">
+          <el-container>
+            <el-header
+                style="background-color: #efe8e8;text-align: center;
+                                padding-top: 15px;font-size: 20px;
+                                border:3px solid #c9c9c9">
+              <el-row gutter="20">
+                <el-col :span="6"><div @click="concern">关注</div></el-col>
+                <el-col :span="6"><div @click="collect">收藏</div></el-col>
+                <el-col :span="6"><div @click="artical">发表文章</div></el-col>
+                <el-col :span="6"><div @click="recent">最近</div></el-col>
+              </el-row>
             </el-header>
-            <!-- 编辑博客 show0-->
+            <!--show[0],关注-->
             <el-main v-if="show[0]">
+              <el-row>
+                <el-col span="650px"><el-avatar :size= "100" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar></el-col>
+                &nbsp&nbsp
+                <el-col span="650px" style="font-size: 30px;padding-top:15px;padding-left: 12px">
 
-            </el-main>
-            <!-- 审核中博客 show1-->
-            <el-main v-if = "this.show[1]">
-                <el-scrollbar>
-                    <el-table :data="reviewBlog">
-                        <el-table-column lable="" width="50"></el-table-column>
-                        <el-table-column prop="blogName" label="Blog" width="300" />
-                        <el-table-column prop="userName" label="Name" width="120" />
-                        <el-table-column prop="date" label="Date" width="140" />
-                        <el-table-column prop="blogLable" label="Lable" width="280"/>
-                        <el-table-column label="State">
-                                <el-button size="mini" type = "info">{{reviewB.state}}</el-button>
-                        </el-table-column>
-                    </el-table>
-                </el-scrollbar>
-            </el-main>
-            <!-- 已发布博客管理 show2-->
-            <el-main v-if="this.show[2]">
-                <el-scrollbar>
-                    <el-table :data="tableData">
-                        <el-table-column lable="" width="50"></el-table-column>
-                        <el-table-column prop="blogName" label="Blog" width="300" />
-                        <el-table-column prop="userName" label="Name" width="120" />
-                        <el-table-column prop="date" label="Date" width="140" />
-                        <el-table-column prop="likeCount" label="Like" width="130" />
-                        <el-table-column prop="collectionNum" label="Collect" width="130"/>
-                        <el-table-column prop="blogLable" label="Lable" width="280"/>
-                        <el-table-column label="State">
-                            <el-button size="mini" type = "success">{{item.state}}</el-button>
-                        </el-table-column>
-                    </el-table>
-                </el-scrollbar>
-            </el-main>
-            <!--个人简介 show4 -->
-            <el-main v-if = "selfInc" style="text-align: -webkit-center" class = "background">
-                <div>&nbsp</div>
-                <div>&nbsp</div>
-                <el-col :span="12">
-                    <div class="sub-title"></div>
-                    <div class="demo-basic--circle" >
-                        <div class="block"><el-avatar :size="200" :src="circleUrl"></el-avatar></div>
-                        <div class="block" v-for="size in sizeList" :key="size">
-                        </div>
-                    </div>
+                  {{ userName }}<span style="font-size: 20px">&nbsp&nbsp加入本博客日期:&nbsp{{registerDate}}</span>
                 </el-col>
-                <br>
-                <br>
-                <div style="font-size: 25px" class="geren">个人昵称:&nbsp{{userName}}</div>
-                <br>
-                <div style="font-size: 25px" class="geren">个人签名:&nbsp{{userSign}}</div>
-                <br>
-                <div style="font-size: 25px" class="geren">注册为本博客用户日期:&nbsp{{registerDate}}</div>
-                <br>
-                <div style="font-size: 25px" class="geren">收藏博客数:&nbsp{{collectedNum}}</div>
+              </el-row>
+            </el-main>
+            <!--show[1],收藏-->
+            <el-main v-if="show[1]">
 
             </el-main>
-            <!-- 收藏博客 show5 -->
-            <el-main v-if = "show[5]">
-                <el-scrollbar>
-                    <el-table :data="collectedData">
-                        <el-table-column prop="blogName" label="Blog" width="300" />
-                        <el-table-column prop="author" label="Author" width="120" />
-                        <el-table-column prop="date" label="Date" width="140" />
-                        <el-table-column prop="likeCount" label="Like" width="130" />
-                        <el-table-column prop="collectionNum" label="Collect" width="130"/>
-                        <el-table-column prop="blogLable" label="Lable" width="280"/>
-                        <el-table-column label="State">
-                            <el-button size="mini" type = "warning" @click = "destroyCollected">取消收藏</el-button>
-                        </el-table-column>
-                    </el-table>
-                </el-scrollbar>
+            <!--show[2],发表文章-->
+            <el-main v-if="show[2]">
+
             </el-main>
-            <!-- 好友信息 show6 -->
-            <el-main v-if = "show[6]">
-                <el-scrollbar>
-                    <el-table :data="friendInfo">
-                        <el-table-column lable="" width="80"></el-table-column>
-                        <el-table-column prop="friendId" label="好友ID" width=""></el-table-column>
-                        <el-table-column prop="friendName" label="好友昵称" width=""></el-table-column>
-                        <el-table-column prop="beFriDate" label="加好友日期" width=""></el-table-column>
-                        <el-table-column prop="sameLike" label="共同关注" width=""></el-table-column>
-                        <el-table-column label="">
-                            <el-button size="mini" type = "danger" @click = "destroyFriend">删除好友</el-button>
-                        </el-table-column>
-                    </el-table>
-                </el-scrollbar>
+            <!--show[3],最近-->
+            <el-main v-if="show[3]">
+
             </el-main>
-        </el-container>
-    </el-container>
+          </el-container>
+        </el-main>
+      </el-container>
+    </el-main>
+  </el-container>
 </template>
 
-<script scope>
-    import {ref} from "vue";
-    import { Menu as IconMenu, Message, Setting} from '@element-plus/icons-vue'
-    import { reactive, toRefs } from 'vue'
-    import Handler from "../components/Handler.vue";
-    export default {
-        name:"selfIntroduction",
-      components: {Handler, Setting, Message},
-        data(){
-            return{
-                collectedNum:'56',
-                registerDate:'2023/4/8',
-                userName:'1245678',
-                userSign:'我是神里绫华的gg',
-                circleUrl: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-                sizeList: ["large", "medium", "small"],
-                item:{              //后端传输已发布博客数据到这个位置，可以通过state属性进行区分
-                    blogName: 'vue3与springboot结合开发博客系统',
-                    userName: '张三',
-                    date: '2023-03-11',
-                    likeCount: '136',
-                    collectionNum: '245',
-                    blogLable: 'vue3\t\tspringboot\t\t前端开发\t\t后端开发',
-                    state:'已通过'
-                },
-                reviewB:{           //后端传审核中博客数据到这个位置
-                    blogName: 'vue3与springboot结合开发博客系统',
-                    userName: '张三',
-                    date: '2023-03-11',
-                    blogLable: 'vue3\t\tspringboot\t\t前端开发\t\t后端开发',
-                    state: '审核中......'
-                },
-                collected:{         //后端传输收藏博客信息数组
-                    blogName: 'vue3与springboot结合开发博客系统',
-                    date: '2023-03-11',
-                    likeCount: '136',
-                    collectionNum: '245',
-                    blogLable: 'vue3\t\tspringboot\t\t前端开发\t\t后端开发',
-                    author:'李四'
-                },
-                friends:{           //后端传输好友信息数组，需要的属性如下
-                    friendId: '1846562132',
-                    friendName: 'Joker',
-                    beFriDate: '2023/4/8',
-                    sameLike: '53',
-                },
-                tableData :[],
-                show:[],
-                reviewBlog:[],
-                collectedData:[],
-                friendInfo:[],
-                selfInc:true
-            }
-        },
-        methods:{
-            edit(){
-                this.show[0] = true;
-                this.show[1] = false;
-                this.show[2] = false;
-                this.show[3] = false;
-                this.selfInc = false;
-                this.show[5] = false;
-                this.show[6] = false;
-            },
-            review(){
-                this.show[0] = false;
-                this.show[1] = true;
-                this.show[2] = false;
-                this.show[3] = false;
-                this.selfInc = false;
-                this.show[5] = false;
-                this.show[6] = false;
-                this.reviewBlog = ref(Array.from({length:10}).fill(this.reviewB));
-            },
-            published(){
-                this.show[0] = false;
-                this.show[1] = false;
-                this.show[2] = true;
-                this.show[3] = false;
-                this.selfInc = false;
-                this.show[5] = false;
-                this.show[6] = false;
-                this.tableData = ref(Array.from({ length: 10 }).fill(this.item));
-            },
-            selfIntroduction(){
-                this.show[0] = false;
-                this.show[1] = false;
-                this.show[2] = false;
-                this.show[3] = false;
-                this.selfInc = true;
-                this.show[5] = false;
-                this.show[6] = false;
-            },
-            collect(){
-                this.show[0] = false;
-                this.show[1] = false;
-                this.show[2] = false;
-                this.show[3] = false;
-                this.selfInc = false;
-                this.show[5] = true;
-                this.show[6] = false;
-                this.collectedData = ref(Array.from({ length: 10 }).fill(this.collected));
-            },
-            friendinfo(){
-                this.show[0] = false;
-                this.show[1] = false;
-                this.show[2] = false;
-                this.show[3] = false;
-                this.selfInc = false;
-                this.show[5] = false;
-                this.show[6] = true;
-                this.friendInfo = ref(Array.from({ length: 10 }).fill(this.friends));
-            },
-            destroyCollected(){         //点击取消收藏按钮后端数据库收藏表中删去对应行
+<script>
+import Handler from "@/components/Handler.vue";
 
-            },
-            destroyFriend(){            //点击删除好友按钮后从数据库中删除好友
-
-            }
-        }
+export default {
+  components: {Handler},
+  data(){
+    return{
+      userName:'woshinidie',
+      registerDate:'2023/4/1',
+      articalNum:0,
+      activeDay:10,
+      fansNum:156,
+      isMyself:true,              //对比后端传来的uid与页面本地存储的Windows.local里的uid是否相同，如果相同将isMyself赋值为true
+      watchNum:1946,
+      show:[]
     }
+  },
+  methods:{
+    //编辑资料，页面跳转
+    a1(){
+
+    },
+    //私聊，页面跳转
+    a2(){
+
+    },
+    //跳转设置界面
+    settings(){
+
+    },
+    //关注函数，查看别人主页时进行关注
+    attention(){
+
+    },
+    //登出系统，退回到主页界面
+    exit(){
+
+    },
+    concern(){
+      this.show[0]=true;
+      this.show[1]=false;
+      this.show[2]=false;
+      this.show[3]=false;
+    },
+    collect(){
+      this.show[0]=false;
+      this.show[1]=true;
+      this.show[2]=false;
+      this.show[3]=false;
+    },
+    artical(){
+      this.show[0]=false;
+      this.show[1]=false;
+      this.show[2]=true;
+      this.show[3]=false;
+    },
+    recent(){
+      this.show[0]=false;
+      this.show[1]=false;
+      this.show[2]=false;
+      this.show[3]=true;
+    }
+  }
+
+
+}
 </script>
 
+<style>
+.asd1{
+  background-image: url("@/assets/123456.jpeg");
+}
+.main{
+  padding-top: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  right: 0px;
+  margin: 0px;
 
-<style scoped>
-    .layout-container-demo .el-header {
-        position: relative;
-        color: var(--el-text-color-primary);
-    }
-    .layout-container-demo .el-aside {
-        color: var(--el-text-color-primary);
-    }
-    .layout-container-demo .el-menu {
-        border-right: none;
-    }
-    .layout-container-demo .el-main {
-        padding: 0;
-    }
-    .layout-container-demo .toolbar {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        right: 0px;
-    }
-    .layout-container-demo .image-slot {
-        font-size: 30px;
-    }
-    .layout-container-demo .image-slot .el-icon {
-        font-size: 30px;
-    }
-    .layout-container-demo .el-image {
-        width: 100%;
-        height: 200px;
-    }
-/*    .el-menu-item{
-      background-color: #696c70;
-    }
-    .el-menu-item-group{
-      background-color: #696c70;
-    }
-    .el-scrollbar{
-      background-color: #696c70;
-    }*/
-    .background{
-        background-image: url("@/assets/dd.jpeg");
-    }
-    html,body,#app,.el-container{
-      padding: 0px;
-      margin: 0px;
-      height: 100%;
-      border: 0;
-    }
-/*    .geren{
-      color: white;
-    }
-    .group{
-      background-color: #696c70;
-    }*/
+}
+.main2{
+  padding-top: 10px;
+  width: 800px;
+  background-color: #efe8e8;
+  justify-content: right;
+}
+.selfIntroduction{
+  width: 1600px;
+  margin: 10px;
+  background-color: #efe8e8;
+  height: 170px;
+  padding-top: 10px;
+  padding-left: 50px;
+  border: 3px solid #d9d4d4;
+}
+.introduct{
+  padding-left:15px;
+  padding: 0px;
+  justify-content: center;
+  font-size: 25px;
+  text-align: center;
+}
+.toolbar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  right: 0px;
+  padding-left: 730px;
+  padding-top: 0px;
+}
+
 </style>

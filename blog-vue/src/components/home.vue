@@ -1,47 +1,29 @@
 <template>
-  <el-container style="padding-left: 20%;padding-right: 20%;" class="main">
+  <el-container style="height: auto" class="main">
     <el-header>
       <div id="login">
         <Handler id="handler"></Handler>
       </div>
     </el-header>
-
-    <el-main style="overflow-y: hidden;background-color: #465453;border: solid 10px #39504c">
-
+    <el-container>
+      <el-aside width="400px" style="height: 950px;">
+        <el-card v-for="i in 6" class="asideCard">
+        </el-card>
+      </el-aside>
+    <el-main  class="zhuti" style="overflow-y: hidden">
       <el-header>
         <div>
           <el-input type="text" style="width: 600px;margin: 10px" v-model="search"/>
           <el-button @click="searchBtn">搜索</el-button>
         </div>
       </el-header>
-
       <el-main style="overflow-y: hidden;padding: 0">
-        <p v-for="(item) in tableDataTwo">{{item.name}}</p>
-
-
-
         <!-- 轮播图-->
-        <el-carousel indicator-position="outside" type="card" style="margin: 0px">
-          <el-carousel-item v-for="item in carouselList" :key="item">
-            <el-image
-                :src="item"
-                fit="fill"></el-image>
-
+        <el-carousel :interval="4000" type="card" height="15vw" arrow="hover">
+          <el-carousel-item v-for="item in carouseData" :key="item">
+            <img :src="item.url" alt="" style="width: 100%; height: auto;"/>
           </el-carousel-item>
         </el-carousel>
-      </el-main>
-<!--      <el-footer>
-        &lt;!&ndash; 页面内容&ndash;&gt;
-        <div>
-          <ul>
-            <li><span v-html="link1"></span></li>
-            <li><span v-html="link2"></span></li>
-            <li><span v-html="link3"></span></li>
-            <li><span v-html="link4"></span></li>
-          </ul>
-        </div>
-
-      </el-footer>-->
         <el-header>
           <div class="he">
             <el-button >Java</el-button>
@@ -49,88 +31,123 @@
             <el-button >C++</el-button>
             <el-button >Php</el-button>
             <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
-            <el-button >Python</el-button>
+            <el-button >日常</el-button>
+            <el-button >美食</el-button>
+            <el-button >生活</el-button>
+            <el-button >风景</el-button>
+            <el-button >游戏</el-button>
+            <el-button >新闻</el-button>
+            <el-button >热门</el-button>
           </div>
         </el-header>
-        <el-main style="overflow-y: hidden">
+      </el-main>
+      <div v-infinite-scroll="getBlog" class="infinite-list" style="overflow: auto" infinite-scroll-distance="1">
+      <el-main style="overflow-y: hidden">
+          <el-row>
+            <el-col v-for="blog in BlogData"
+                    :key="blog.bid"
+                    :span="12"
+                    style="margin: 0"
+                    class="infinite-list-item">
+                <el-card :body-style="{ padding: '0px'}" shadow="always" class="blog">
+                  <template #header class="card-headerr">
+                    <div class="card-header">
+                      <span class="blogContent" @click="enterBlog(blog.bid)">{{sliceStr(blog.btitle,20)}}</span>
+                    </div>
+                  </template>
+                  <span class="textcontent" @click="enterBlog(blog.bid)">{{sliceStr(blog.bcontent,30)}}</span>
+                  <div style="padding: 10px;">
+                    <div style="float: left"><el-button text type="primary" plain style="background-color: #30484b">{{blog.uname}}</el-button></div>
+                    <div class="bottom">
+                      <el-button text type="primary" class="button" icon="Comment" style="background-color: #30484b"></el-button>
+                      <el-button text type="primary" class="button" icon="ArrowUp" style="background-color: #30484b"></el-button>
+                      <el-button text type="primary" class="button" icon="Star" style="background-color: #30484b"></el-button>
+                    </div>
+                  </div>
+                </el-card>
+            </el-col>
+          </el-row>
         </el-main>
-
+      </div>
     </el-main>
+    </el-container>
   </el-container>
 </template>
-
-<script>
-import {ref} from'vue'
+<script setup>
+import {computed, onMounted, ref} from 'vue'
 import Handler from "../components/Handler.vue";
-export default {
-
-  name: "Home",
-  components: {Handler},
-  setup() {
-    const search=ref('') //搜索框数据绑定
-    const tableData = ref([
-      {
-        name:''
-      },
-      {
-        name:'张三'
-      },
-      {
-        name:'李四'
-      },
-      {
-        name:'王五'
-      },
-      {
-        name:'孙六'
-      }
-    ])
-    const tableDataTwo=ref([])
-    const searchBtn=()=>{
-
-      let sea = search.value
-      if (sea) {
-        tableDataTwo.value = tableData.value.filter(function(a) { //通过鲁律数据赋值给新数组可实现重复搜索
-          return Object.keys(a).some(function(key) {
-            return String(a['name']).toLowerCase().indexOf(sea) > -1
-          })
-        })
-      }
-    }
-
-    return {
-      carouselList:[require("../assets/1.png"),require("../assets/2.png"),
-        require("../assets/3.png"),require("../assets/4.png")],
-      search,
-      searchBtn,
-      tableDataTwo,
-      link1: "<a href='http://localhost:8080/#/blog/1+1'>1+1=?</a>",
-      link2: "<a href='http://localhost:8080/#/blog/1+2'>1+2=?</a>",
-      link3: "<a href='http://localhost:8080/#/blog/1+3'>1+3=?</a>",
-      link4: "<a href='http://localhost:8080/#/blog/1+4'>1+4=?</a>",
+import axios from "axios";
+import {ElMessage} from "element-plus";
 
 
+const carouseData = [
+  {url: require("../assets/gangtie.jpg")},
+  {url: require("../assets/dd.jpeg")},
+  {url: require("../assets/123456.jpeg")},
+  {url: require("../assets/4455.jpg")},
+]
+let cur = 1;
+let i = 0;
+let BlogData = ref({});
+let index = 0;
 
-    }
 
-  },
-  methods:{
-
+const sliceStr= computed(()=>{
+  return function (val,len){
+    return val.length>len?val.slice(0,len)+"...":val
   }
+})
+function getBlog(){
+  axios({
+    method:'get',
+    params:{
+      cur:cur++
+    },
+    url:'http://localhost:8081/getBlog',
+  }).then(res=>{
+    for (let j = i; j <i+2; j++) {
+      BlogData.value[j]=res.data.data.records[j-i];
+    }
+    i=i+2;
+  })
 }
+function enterBlog(bid){
+ /* window.location.href=*/
+  ElMessage.success("dadawd")
+}
+onMounted(()=>{
+  getBlog();
+})
+
 </script>
 
-<style scoped>
 
+
+<style scoped>
+.asideCard{
+  margin: 4%;
+  height: 130px;
+  background-color: #30484b;
+  border: 0;
+  border-radius: 10px;
+}
+.zhuti{
+  background-color: #465453;
+  border: solid 10px #39504c;
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 20%;
+}
+.textcontent{
+  display: flex;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: white;
+}
+.card-header {
+  float: left;
+  color: white;
+}
 .el-container{
   padding: 0;
   /*外部间距也是如此设置*/
@@ -173,9 +190,6 @@ li {
   line-height: 50px;
 }
 
-.el-button{
-  border: 0px;
-}
 .he{
   display: inline-flex;
   align-items: center;
@@ -185,6 +199,28 @@ li {
 }
 .main{
   background-image: url("@/assets/ddd.jpeg");
-  background-repeat: space,repeat-y;
+  background-repeat: round;
+}
+
+.bottom {
+  line-height: 12px;
+  display: inline;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+}
+
+.button {
+  padding: 0;
+  min-height: auto;
+}
+.blog{
+  background-color: #30484b;
+  border: 0;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.infinite-list{
+  height: 500px;
 }
 </style>

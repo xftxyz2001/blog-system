@@ -51,7 +51,6 @@ export default {
       rawHtml1: "<a href='http://localhost:8080/#/about'>注册</a>",
       rawHtml2: "<a href='http://localhost:8080/#/forget'>忘记密码</a>",
 
-
     }
   },
   methods:{
