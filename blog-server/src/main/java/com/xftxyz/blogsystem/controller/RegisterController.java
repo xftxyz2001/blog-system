@@ -1,7 +1,5 @@
 package com.xftxyz.blogsystem.controller;
 
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,15 +30,6 @@ public class RegisterController {
     private String subject = "博客系统验证码";
     private String content = "【220博客系统】您的验证码: ";
 
-    private static final String[] ILLEGAL_WORDS = { "你妈", "傻逼", "煞笔", "沙比", "骚逼", "烧杯", "尼玛", "sb", "tmd" };
-
-    private static final Pattern PATTERN = Pattern.compile("\\b(" + String.join("|", ILLEGAL_WORDS) + ")\\b",
-            Pattern.CASE_INSENSITIVE);
-
-    public boolean containSensitiveWords(String name) {
-        return PATTERN.matcher(name).find();
-    }
-
     /**
      * 注册方法，如果用户名包含敏感词汇，就注册失败，否则注册成功
      * 
@@ -52,7 +41,7 @@ public class RegisterController {
     @PostMapping("/actReg")
     public R<String> registerHandle(@RequestParam String name, @RequestParam String pwd, @RequestParam String email) {
         // 如果用户名包含敏感词汇
-        if (containSensitiveWords(name)) {
+        if (Util.containSensitiveWords(name)) {
             throw new BlogException("注册失败，请勿使用敏感词汇做用户名");
         }
 
