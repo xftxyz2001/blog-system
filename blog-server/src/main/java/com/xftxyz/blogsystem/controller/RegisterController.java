@@ -75,7 +75,7 @@ public class RegisterController {
      * @return 发送结果
      */
     @GetMapping("/ConfirmCode")
-    public R<String> ConfirmCodeSend(@RequestParam String email) {
+    public R<String> sendConfirmCode(@RequestParam String email) {
         String code = Util.getCode();
         mailService.sendSimpleMail(email, subject, content + code);
         return R.ok("验证码已发送至邮箱，请注意查收");

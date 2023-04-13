@@ -12,4 +12,10 @@ public interface UserService extends IService<User> {
 
     User login(String name, String password);
 
+    boolean checkUser(String name);
+
+    boolean checkEmail(String name, String email);
+
+    boolean changePassword(String email, String pwd);
+
 }

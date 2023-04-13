@@ -24,4 +24,22 @@
         uname = #{uname,jdbcType=VARCHAR}
         AND pwd = #{pwd,jdbcType=VARCHAR}
     </select>
+    <select id="countByUname" resultType="int">
+        select count(*)
+        from t_user
+        where uname = #{uname,jdbcType=VARCHAR}
+    </select>
+    <select id="countByUnameAndEmail" resultType="int">
+        select count(*)
+        from t_user
+        where uname = #{uname,jdbcType=VARCHAR}
+          AND email = #{email,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByEmail" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where
+        email = #{email,jdbcType=VARCHAR}
+    </select>
 </mapper>

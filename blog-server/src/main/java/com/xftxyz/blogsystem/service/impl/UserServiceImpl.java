@@ -31,4 +31,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return null;
     }
 
+    @Override
+    public boolean checkUser(String name) {
+        return userMapper.countByUname(name) > 0;
+    }
+
+    @Override
+    public boolean checkEmail(String name, String email) {
+        return userMapper.countByUnameAndEmail(name, email) > 0;
+    }
+
+    @Override
+    public boolean changePassword(String email, String pwd) {
+        // 找到对应email的用户
+        List<User> users = userMapper.selectByEmail(email);
+        if (users == null || users.size() < 1) {
+            return false;
+        }
+        User user = users.get(0);
+        // 修改密码
+        user.setPwd(pwd);
+        return userMapper.updateById(user) > 0;
+    }
+
 }

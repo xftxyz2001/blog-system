@@ -17,4 +17,11 @@ import com.xftxyz.blogsystem.jb.User;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
     List<User> selectByUnameAndPwd(@Param("uname") String uname, @Param("pwd") String pwd);
+
+    List<User> selectByEmail(@Param("email") String email);
+
+    int countByUname(@Param("uname") String uname);
+
+    int countByUnameAndEmail(@Param("uname") String uname, @Param("email") String email);
+
 }
