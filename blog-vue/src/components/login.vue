@@ -48,8 +48,8 @@ export default {
       userName: "",
       password: "",
       buttonTitle1: "登录",
-      rawHtml1: "<a href='http://localhost:8080/#/about'>注册</a>",
-      rawHtml2: "<a href='http://localhost:8080/#/forget'>忘记密码</a>",
+      rawHtml1: "<a href='/#/about'>注册</a>",
+      rawHtml2: "<a href='/#/forget'>忘记密码</a>",
 
     }
   },
@@ -65,15 +65,15 @@ export default {
       }).then(res=>{
         if(res.data.flag){
           this.$message.success(res.data.msg);
-          window.location.href='http://localhost:8080/#/';
+          window.location.href='/#/';
         }
       })
     },
     reset(){
-      window.location.href="http://localhost:8080/#/about";
+      window.location.href="/#/about";
     },
     forget(){
-      window.location.href='http://localhost:8080/#/forget';
+      window.location.href='/#/forget';
     }
 
 

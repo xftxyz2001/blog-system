@@ -90,7 +90,7 @@
                     this.isReset = false;
                     this.title = "重置成功"
                     this.$message.info("密码重置成功")
-                    window.location.href='http://localhost:8080/#/';
+                    window.location.href='/#/';
                   })
             },
             getVerific(){

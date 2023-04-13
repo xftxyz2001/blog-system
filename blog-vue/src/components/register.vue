@@ -60,7 +60,7 @@
               }).then(res=>{
                 if(res.data.flag){
                   this.$message.success(res.data.msg);
-                  window.location.href='http://localhost:8080/#/';
+                  window.location.href='/#/';
                 }
                 else{
                   this.$message.error("邮箱已被使用");

@@ -5,10 +5,10 @@
                 <a href="javascript:void(0)" class="header-logo" id="logo">BLOG</a>
                 <nav class="nav" id="nav">
                     <ul>
-                        <li><a href='http://localhost:8080/#/' >首页</a></li>
-                        <li><a href='http://localhost:8080/#/login' >登录</a></li>
-                        <li><a href='http://localhost:8080/#/selfIntroduction'>个人主页</a></li>
-                        <li><a href='http://localhost:8080/' type="info" @click="logout">退出</a> </li>
+                        <li><a href='/#/' >首页</a></li>
+                        <li><a href='/#/login' >登录</a></li>
+                        <li><a href='/#/selfIntroduction'>个人主页</a></li>
+                        <li><a href='/' type="info" @click="logout">退出</a> </li>
                     </ul>
                 </nav>
 

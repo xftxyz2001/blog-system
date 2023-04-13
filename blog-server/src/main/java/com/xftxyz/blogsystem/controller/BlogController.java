@@ -1,24 +1,50 @@
 package com.xftxyz.blogsystem.controller;
 
-import com.xftxyz.blogsystem.service.BlogService;
-import com.xftxyz.blogsystem.jb.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xftxyz.blogsystem.controller.utils.R;
+import com.xftxyz.blogsystem.jb.Blog;
+import com.xftxyz.blogsystem.service.BlogService;
+
+/**
+ * 博客操作接口
+ */
 @RestController
-// @Api(value = "博客操作接口", tags = "博客操作接口")
 public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @GetMapping("/getRandomBlog")
-    // @ApiOperation(value = "主页获取博客(随机)",notes ="主页获取博客(随机)")
-    public Blog getRandomBlog(@RequestParam int num) {
-        // TODO:随机
-        return blogService.getById(num);
+    /**
+     * 主页获取博客
+     * 
+     * @param cur  当前页
+     * @param size 每页大小
+     * @return 博客列表
+     */
+    @GetMapping("/getBlog")
+    public R<IPage<Blog>> getBlog(@RequestParam(defaultValue = "1") Integer cur,
+            @RequestParam(defaultValue = "2") Integer size) {
+        IPage<Blog> pageInfo = new Page<>(cur, size);
+        IPage<Blog> pageResult = blogService.getBlog(pageInfo);
+        return R.ok(pageResult);
     }
+
+    /**
+     * 主页获取博客(随机)
+     * 
+     * @param num 要求返回的结果最大条数
+     * @return
+     */
+    @GetMapping("/getRandomBlog")
+    public R<Blog> getRandomBlog(@RequestParam(defaultValue = "2") Integer num) {
+        return R.ok(blogService.getRandom(num));
+    }
+
     /*
      * @PostMapping("/createBlog")
      * // @ApiOperation(value = "创建博客", notes = "创建博客")
