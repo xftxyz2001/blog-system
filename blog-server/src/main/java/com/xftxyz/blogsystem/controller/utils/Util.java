@@ -2,6 +2,9 @@ package com.xftxyz.blogsystem.controller.utils;
 
 import java.util.Random;
 
+/**
+ * 工具类
+ */
 public class Util {
     public static final String SESSION_USER = "user";
     public static final String PASSWORD_MASK = "******";

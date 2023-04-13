@@ -2,7 +2,9 @@ package com.xftxyz.blogsystem.controller.utils;
 
 import lombok.Data;
 
-//表现层接口统一
+/**
+ * 表现层接口统一
+ */
 @Data
 public class R<T> {
     Boolean flag;

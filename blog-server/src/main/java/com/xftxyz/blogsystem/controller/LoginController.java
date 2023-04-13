@@ -13,12 +13,23 @@ import com.xftxyz.blogsystem.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * 登录接口
+ */
 @RestController
-// @Api(value = "登录接口",tags = {"登录接口"})
 public class LoginController {
+
     @Autowired
     UserService userService;
 
+    /**
+     * 登录
+     * 
+     * @param session  用于保存登录信息
+     * @param name     用户名
+     * @param password 密码
+     * @return 用户信息
+     */
     @PostMapping("/login")
     public R<User> processLogin(HttpSession session, @RequestParam String name, @RequestParam String password) {
         User user = userService.login(name, password);

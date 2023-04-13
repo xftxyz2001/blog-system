@@ -1,17 +1,22 @@
 package com.xftxyz.blogsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.xftxyz.blogsystem.controller.utils.BlogException;
 import com.xftxyz.blogsystem.service.MailService;
 
 @Service
 public class MailServiceImpl implements MailService {
-    private static final String SENDER = "jsxwysda@163.com";
+
+    @Value("${spring.mail.username}")
+    String SENDER;
+
     @Autowired
-    private JavaMailSender mailSender;
+    JavaMailSender mailSender;
 
     /**
      * 发送普通邮件
@@ -29,7 +34,7 @@ public class MailServiceImpl implements MailService {
         try {
             mailSender.send(message);
         } catch (Exception e) {
-            System.out.println("发送普通邮件时发生异常!" + e);
+            throw new BlogException("邮件发送失败");
         }
     }
 }
