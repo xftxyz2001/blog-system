@@ -1,0 +1,8 @@
+{
+    "allInOne": true,
+    "outPath": "src/main/resources/static/doc",
+    "coverOld": true,
+    "createDebugPage": true,
+    "style": "xt256",
+    "framework": "spring"
+}
