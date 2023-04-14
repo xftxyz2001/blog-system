@@ -57,7 +57,7 @@
                   params.append('name',this.userName)
                   axios({
                     method:'post',
-                    url:'http://localhost:8081/forgetPwd/checkUser',
+                    url:'/forgetPwd/checkUser',
                     data:params
                   }).then(res=>{
                     if(!res.data.flag){
@@ -68,7 +68,7 @@
                   params.append('email',this.Email)
                   axios({
                     method:'post',
-                    url:'http://localhost:8081/forgetPwd/checkEmail',
+                    url:'/forgetPwd/checkEmail',
                     data:params
                   }).then(res=>{
                     if(!res.data.flag){
@@ -80,7 +80,7 @@
                   params.append('pwd',this.password)
                   axios({
                     method:'post',
-                    url:'http://localhost:8081/forgetPwd/rePwd',
+                    url:'/forgetPwd/rePwd',
                     data:params
                   }).then(res=>{
                     if(!res.data.flag){
@@ -116,7 +116,7 @@
 
                axios({
                  method:'get',
-                 url:'http://localhost:8081/register/ConfirmCode',
+                 url:'/register/ConfirmCode',
                  params:{
                    email:this.Email
                  }
@@ -159,7 +159,7 @@
               }
               axios({
                 method:method,
-                url:'http://localhost:8081' + url,
+                url:'' + url,
                 data:param
               }).then(res=>{
                 this.rs = res.data;
@@ -168,7 +168,7 @@
             else{
               axios({
                 method:method,
-                url:'http://localhost:8081' + url,
+                url:'' + url,
                 params:data
 
               }).then(res=>{

@@ -42,7 +42,7 @@ export default {
     clickLogIn(){
       axios({
         method:'get',
-        url:'http://localhost:8081/login',
+        url:'/login',
         params: {
           name:this.userName,
           password:this.password

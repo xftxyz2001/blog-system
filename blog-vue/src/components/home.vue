@@ -103,7 +103,7 @@ function getBlog(){
     params:{
       cur:cur++
     },
-    url:'http://localhost:8081/getBlog',
+    url:'/getBlog',
   }).then(res=>{
     for (let j = i; j <i+2; j++) {
       BlogData.value[j]=res.data.data.records[j-i];

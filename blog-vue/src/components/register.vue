@@ -55,7 +55,7 @@
               param.append('email',this.email)
               axios({
                 method:'post',
-                url:'http://localhost:8081/register/actReg',
+                url:'/register/actReg',
                 data:param
               }).then(res=>{
                 if(res.data.flag){
@@ -90,7 +90,7 @@
             }
             axios({
               method:'get',
-              url:'http://localhost:8081/register/ConfirmCode',
+              url:'/register/ConfirmCode',
               params:{
                 email:this.email
               }
