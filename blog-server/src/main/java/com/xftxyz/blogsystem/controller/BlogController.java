@@ -47,40 +47,4 @@ public class BlogController {
 
     // TODO: 2023/4/13 未完成
 
-    /*
-     * @PostMapping("/createBlog")
-     * // @ApiOperation(value = "创建博客", notes = "创建博客")
-     * public boolean create_blog(@RequestParam int uid, @RequestParam int
-     * bno, @RequestParam String btitle,
-     * 
-     * @RequestParam String bcontent, @RequestParam boolean bpublished,
-     * 
-     * @RequestParam Timestamp create_time,
-     * 
-     * @RequestParam int goodNum, @RequestParam int collectNum,
-     * 
-     * @RequestParam boolean state) {
-     * return blogService.addBlog(uid, bno, btitle, bcontent, bpublished,
-     * create_time,
-     * goodNum, collectNum, state);
-     * }
-     * 
-     * @GetMapping("/getRandomBlog")
-     * // @ApiOperation(value = "主页获取博客(随机)",notes ="主页获取博客(随机)")
-     * public List<Blog> getRandomBlog(@RequestParam int num){
-     * return blogService.getRandomBlog(num);
-     * }
-     * 
-     * @GetMapping("/getUserAllBlog")
-     * // @ApiOperation(value = "获取用户所有blog",notes ="获取用户所有blog")
-     * public List<Blog> getUserAllBlog(@RequestParam int uid){
-     * return blogService.getUserBlog_ALL(uid);
-     * }
-     * 
-     * @GetMapping("/deleteBlog")
-     * // @ApiOperation(value = "删除指定博客",notes = "删除指定博客")
-     * public boolean deleteBlog(@RequestParam int bid){
-     * return blogService.deleteBlog(bid);
-     * }
-     */
 }
