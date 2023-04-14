@@ -1,8 +1,6 @@
 package com.xftxyz.blogsystem.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xftxyz.blogsystem.controller.utils.R;
 import com.xftxyz.blogsystem.jb.Blog;
 import com.xftxyz.blogsystem.jb.Comment;
@@ -104,10 +101,8 @@ public class MyHomeController {
      * @return
      */
     @GetMapping("/getFollow")
-    public R<Object> getFollow(@RequestParam Integer uid) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("uid_self", uid);
-        return R.ok(followService.listByMap(map));
+    public R<List<Follow>> getFollow(@RequestParam Integer uid) {
+        return R.ok(followService.getFollow(uid));
     }
 
     /**
@@ -118,9 +113,7 @@ public class MyHomeController {
      */
     @GetMapping("/getFans")
     public R<Object> getFans(@RequestParam Integer uid) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("uid_follow", uid);
-        return R.ok(followService.listByMap(map));
+        return R.ok(followService.getFans(uid));
     }
 
     /**
@@ -132,9 +125,7 @@ public class MyHomeController {
      */
     @DeleteMapping("/deleteFollow")
     public R<Object> cancelFollow(@RequestParam Integer uid, @RequestParam Integer fid) {
-        QueryWrapper<Follow> queryWrapper = new QueryWrapper<>();
-        queryWrapper.ge("uid_self", uid).ge("uid_follow", fid);
-        boolean flag = followService.remove(queryWrapper);
+        boolean flag = followService.cancelFollow(uid, fid);
         return flag ? R.ok("取消关注成功") : R.error("取消失败");
     }
 
