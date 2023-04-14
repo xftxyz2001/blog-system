@@ -68,4 +68,4 @@ jobs:
               echo kill -9 $PID
               kill -9 $PID
             fi
-            nohup java -jar blog-server/target/blogsystem-0.0.1-SNAPSHOT.jar >> bloglog &
+            nohup java -jar blog-server/target/blogsystem-0.0.1-SNAPSHOT.jar >> log_blogsystem &
