@@ -12,6 +12,7 @@ public class ProjectExceptionAdvice {
     // 处理自定义异常
     @ExceptionHandler(BlogException.class)
     public R<Object> doBlogException(BlogException e) {
+        e.printStackTrace();
         return R.error(e.getMessage());
     }
 
