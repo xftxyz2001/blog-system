@@ -116,7 +116,7 @@ public class ChatController {
                     success = true;
             } else {
                 msg.add(new Message(text, sender, type, file));
-                // TODO: 这里在干什么？
+                // ？
                 // cmu = new Communicate(mapper.writeValueAsString(msg), uid1 > uid2 ? uid2 :
                 // uid1, uid1 > uid2 ? uid1 : uid2);
                 if (communicateService.save(cmu))

@@ -25,4 +25,6 @@ public interface BlogService extends IService<Blog> {
 
     Integer decreaseCollectNumAndGet(Integer bid);
 
+    List<Blog> getUserBlog(Integer uid);
+
 }

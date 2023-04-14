@@ -19,6 +19,7 @@ import com.xftxyz.blogsystem.service.UserService;
 @RestController
 @RequestMapping("/forgetPwd")
 public class ForgetController {
+    
     @Autowired
     UserService userService;
 

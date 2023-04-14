@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xftxyz.blogsystem.jb.Blog;
@@ -71,6 +73,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         blog.setCollectnum(blog.getCollectnum() - 1);
         blogMapper.updateById(blog);
         return blog.getCollectnum();
+    }
+
+    @Override
+    public List<Blog> getUserBlog(Integer uid) {
+        Wrapper<Blog> wrapper = new QueryWrapper<Blog>().eq("uid", uid);
+        return blogMapper.selectList(wrapper);
     }
 
 }
