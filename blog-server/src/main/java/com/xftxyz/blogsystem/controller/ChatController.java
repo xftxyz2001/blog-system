@@ -20,9 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xftxyz.blogsystem.controller.utils.R;
 import com.xftxyz.blogsystem.controller.utils.Util;
 import com.xftxyz.blogsystem.jb.Communicate;
+import com.xftxyz.blogsystem.jb.Message;
 import com.xftxyz.blogsystem.service.CommunicateService;
-
-import lombok.Data;
 
 /**
  * 私聊界面接口
@@ -118,7 +117,8 @@ public class ChatController {
             } else {
                 msg.add(new Message(text, sender, type, file));
                 // TODO: 这里在干什么？
-                // cmu = new Communicate(mapper.writeValueAsString(msg), uid1 > uid2 ? uid2 : uid1, uid1 > uid2 ? uid1 : uid2);
+                // cmu = new Communicate(mapper.writeValueAsString(msg), uid1 > uid2 ? uid2 :
+                // uid1, uid1 > uid2 ? uid1 : uid2);
                 if (communicateService.save(cmu))
                     success = true;
             }
@@ -129,33 +129,4 @@ public class ChatController {
         return success;
     }
 
-}
-
-@Data
-class Message {
-    String content;
-    int sender;
-    int type;
-    byte[] file;
-
-    Message() {
-        content = null;
-        sender = 0;
-        type = 0;
-        file = null;
-    }
-
-    public Message(String ct, int sd, int ty) {
-        content = ct;
-        sender = sd;
-        type = ty;
-        file = null;
-    }
-
-    public Message(String ct, int sd, int ty, byte[] bt) {
-        content = ct;
-        sender = sd;
-        type = ty;
-        file = bt;
-    }
 }
