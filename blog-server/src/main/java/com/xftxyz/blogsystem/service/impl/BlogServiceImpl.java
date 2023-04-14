@@ -1,5 +1,6 @@
 package com.xftxyz.blogsystem.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,12 +31,46 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
     }
 
     @Override
-    public Blog getRandom(int num) {
+    public List<Blog> getRandom(int num) {
         List<Integer> ids = blogMapper.selectList(null).stream()
                 .map(Blog::getBno).collect(Collectors.toList());
-        // TODO: 选出num个个id
-        int index = (int) (Math.random() * ids.size());
-        return blogMapper.selectById(ids.get(index));
+        // 打乱顺序
+        Collections.shuffle(ids);
+        // 取前num个，不足则返回全部
+        List<Integer> selectedIds = ids.subList(0, num);
+        return listByIds(selectedIds);
+    }
+
+    @Override
+    public Integer increaseGoodNumAndGet(Integer bid) {
+        Blog blog = blogMapper.selectById(bid);
+        blog.setGoodnum(blog.getGoodnum() + 1);
+        blogMapper.updateById(blog);
+        return blog.getGoodnum();
+    }
+
+    @Override
+    public Integer increaseCollectNumAndGet(Integer bid) {
+        Blog blog = blogMapper.selectById(bid);
+        blog.setCollectnum(blog.getCollectnum() + 1);
+        blogMapper.updateById(blog);
+        return blog.getCollectnum();
+    }
+
+    @Override
+    public Integer decreaseGoodNumAndGet(Integer bid) {
+        Blog blog = blogMapper.selectById(bid);
+        blog.setGoodnum(blog.getGoodnum() - 1);
+        blogMapper.updateById(blog);
+        return blog.getGoodnum();
+    }
+
+    @Override
+    public Integer decreaseCollectNumAndGet(Integer bid) {
+        Blog blog = blogMapper.selectById(bid);
+        blog.setCollectnum(blog.getCollectnum() - 1);
+        blogMapper.updateById(blog);
+        return blog.getCollectnum();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.xftxyz.blogsystem.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xftxyz.blogsystem.jb.Comment;
 
@@ -9,5 +11,11 @@ import com.xftxyz.blogsystem.jb.Comment;
  * @createDate 2023-04-11 13:52:37
  */
 public interface CommentService extends IService<Comment> {
+
+    boolean deleteCommentAll(int bid);
+
+    String getCommentUser(Integer cid);
+
+    List<Comment> getAllComment(Integer bid);
 
 }

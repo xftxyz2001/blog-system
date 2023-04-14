@@ -1,5 +1,7 @@
 package com.xftxyz.blogsystem.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xftxyz.blogsystem.jb.Blog;
@@ -13,6 +15,14 @@ public interface BlogService extends IService<Blog> {
 
     IPage<Blog> getBlog(IPage<Blog> page);
 
-    Blog getRandom(int num);
+    List<Blog> getRandom(int num);
+
+    Integer increaseGoodNumAndGet(Integer bid);
+
+    Integer increaseCollectNumAndGet(Integer bid);
+
+    Integer decreaseGoodNumAndGet(Integer bid);
+
+    Integer decreaseCollectNumAndGet(Integer bid);
 
 }

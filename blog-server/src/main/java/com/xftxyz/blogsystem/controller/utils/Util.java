@@ -3,6 +3,10 @@ package com.xftxyz.blogsystem.controller.utils;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+import com.xftxyz.blogsystem.jb.User;
+
+import jakarta.servlet.http.HttpSession;
+
 /**
  * 工具类
  */
@@ -36,6 +40,17 @@ public class Util {
             text = text.replaceAll(regex, "**");
         }
         return text;
+    }
+
+    public static User checkLogin(HttpSession session, boolean force) {
+        User user = (User) session.getAttribute(SESSION_USER);
+        if (user != null) {
+            return user;
+        }
+        if (force) {
+            throw new BlogException("用户未登录");
+        }
+        return null;
     }
 
 }
