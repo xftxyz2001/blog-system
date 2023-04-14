@@ -12,8 +12,19 @@ const app = createApp(App)
 app.use(ElementPlus).use(router).use(Layout).use(infiniteScroll).mount('#app')
 
 axios.defaults.baseURL = window.location.origin;
+// axios.defaults.baseURL = http://8.130.81.23:8081;
 
+/*
+axios.get('/api').then(res => {
+    var r = res.data;
+    if (r.flag) {
+        console.log(r.data);
+    } else {
+        ElMessage.warning(r.msg);
+    }
+});
+*/
 // 统一导入el-icon图标
-for(let iconName in ElIconModules){
-    app.component(iconName,ElIconModules[iconName])
+for (let iconName in ElIconModules) {
+    app.component(iconName, ElIconModules[iconName])
 }
