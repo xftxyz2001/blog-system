@@ -56,7 +56,7 @@ export default {
   methods:{
     clickLogIn(){
       axios({
-        method:'get',
+        method:'post',
         url:'/login',
         params: {
           name:this.userName,
