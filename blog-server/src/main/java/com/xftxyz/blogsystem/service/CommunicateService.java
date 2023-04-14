@@ -1,7 +1,10 @@
 package com.xftxyz.blogsystem.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xftxyz.blogsystem.jb.Communicate;
+import com.xftxyz.blogsystem.jb.Message;
 
 /**
  * @author 25810
@@ -10,4 +13,7 @@ import com.xftxyz.blogsystem.jb.Communicate;
  */
 public interface CommunicateService extends IService<Communicate> {
 
+    List<Message> getAllMsg(Integer uid1, Integer uid2);
+
+    void addMsg(Integer uid1, Integer uid2, String text, int sender, int type, byte[] file);
 }

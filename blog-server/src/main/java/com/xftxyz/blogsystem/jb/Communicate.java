@@ -6,14 +6,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * 
  * @TableName t_communicate
  */
-@TableName(value ="t_communicate")
+@TableName(value = "t_communicate")
 @Data
+@AllArgsConstructor
 public class Communicate implements Serializable {
     /**
      * 用户1
