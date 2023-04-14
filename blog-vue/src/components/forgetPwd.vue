@@ -5,7 +5,7 @@
         <br><br><br><br><br><br><br><br><br>
         <h1>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{title}}</h1>
         <br>
-        <div v-if="isReset">（吴禹飞）用户名:&nbsp&nbsp&nbsp&nbsp&nbsp<input v-model = "userName" type = "text"/></div>
+        <div v-if="isReset">用户名:&nbsp&nbsp&nbsp&nbsp&nbsp<input v-model = "userName" type = "text"/></div>
         <br>
     </div>
     <div>
