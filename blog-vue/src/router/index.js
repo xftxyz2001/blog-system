@@ -25,11 +25,6 @@ const routes =[
         component: () => import(/* webpackChunkName: "about" */ '../components/login.vue')
     },
     {
-        path:"/personal-home",
-        name:'personal-home',
-        component: () => import(/* webpackChunkName: "about" */ '../components/personal-home.vue')
-    },
-    {
         path:"/blog/:name",
         name:'blog',
         component: () => import(/* webpackChunkName: "about" */ '../components/blog.vue')
@@ -39,6 +34,12 @@ const routes =[
         name:'selfIntroduction',
         component: () => import(/* webpackChunkName: "about" */ '../components/selfIntroduction.vue')
     },
+    {
+        path:"/chat",
+        name:'chat',
+        component: () => import(/* webpackChunkName: "about" */ '../components/chat.vue')
+    },
+
 
 ]
 const  router =createRouter({

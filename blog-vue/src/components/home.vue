@@ -5,11 +5,41 @@
         <Handler id="handler"></Handler>
       </div>
     </el-header>
+
     <el-container>
       <el-aside width="400px" style="height: 950px;">
-        <el-card v-for="i in 6" class="asideCard">
-        </el-card>
+        <el-tabs v-model="activeName" stretch class="demo-tabs" style="padding: 20px" @tab-click="handleClick">
+          <el-tab-pane name="first">
+            <template #label>
+              <div>
+                <img src="../assets/svg/热门.svg" alt="">
+                <span style="font-size: 25px;color: white;margin-left: 20px">热门</span>
+              </div>
+            </template>
+
+            <el-card v-for="hot in hotBlog" shadow="always" class="asideCard">
+              <template #header>
+                <div class="hotBlog" @click="enterBlog(hot.bid)">{{sliceStr(hot.btitle,20)}}</div>
+              </template>
+              <div class="hotBlog" @click="enterBlog(hot.bid)">{{sliceStr(hot.bcontent,30)}}</div>
+            </el-card>
+          </el-tab-pane>
+          <el-tab-pane name="second">
+            <template #label>
+              <img src="../assets/svg/最新.svg" alt="">
+              <span style="font-size: 25px;color: white;margin-left: 20px">最新</span>
+            </template>
+            <el-card v-for="rec in recentBlog" shadow="always" class="asideCard">
+              <template #header>
+                <div class="hotBlog" @click="enterBlog(rec.bid)">{{sliceStr(rec.btitle,20)}}</div>
+              </template>
+              <div class="hotBlog" @click="enterBlog(rec.bid)">{{sliceStr(rec.bcontent,30)}}</div>
+            </el-card>
+          </el-tab-pane>
+        </el-tabs>
+
       </el-aside>
+
     <el-main  class="zhuti" style="overflow-y: hidden">
       <el-header>
         <div>
@@ -17,6 +47,7 @@
           <el-button @click="searchBtn">搜索</el-button>
         </div>
       </el-header>
+
       <el-main style="overflow-y: hidden;padding: 0">
         <!-- 轮播图-->
         <el-carousel :interval="4000" type="card" height="15vw" arrow="hover">
@@ -24,6 +55,7 @@
             <img :src="item.url" alt="" style="width: 100%; height: auto;"/>
           </el-carousel-item>
         </el-carousel>
+
         <el-header>
           <div class="he">
             <el-button >Java</el-button>
@@ -41,6 +73,7 @@
           </div>
         </el-header>
       </el-main>
+
       <div v-infinite-scroll="getBlog" class="infinite-list" style="overflow: auto" infinite-scroll-distance="1">
       <el-main style="overflow-y: hidden">
           <el-row>
@@ -70,6 +103,7 @@
         </el-main>
       </div>
     </el-main>
+
     </el-container>
   </el-container>
 </template>
@@ -79,7 +113,7 @@ import Handler from "../components/Handler.vue";
 import axios from "axios";
 import {ElMessage} from "element-plus";
 
-
+const activeName = ref('first')
 const carouseData = [
   {url: require("../assets/gangtie.jpg")},
   {url: require("../assets/dd.jpeg")},
@@ -89,8 +123,9 @@ const carouseData = [
 let cur = 1;
 let i = 0;
 let BlogData = ref({});
+let hotBlog = ref({});
+let recentBlog = ref({});
 let index = 0;
-
 
 const sliceStr= computed(()=>{
   return function (val,len){
@@ -111,11 +146,40 @@ function getBlog(){
     i=i+2;
   })
 }
+function getHotBlog(){
+  axios({
+    method:'get',
+    params:{
+      num:5,
+    },
+    url:'/getHotBlog',
+  }).then(res=>{
+    for (let k = 0; k < 5; k++) {
+      hotBlog.value[k]=res.data.data[k];
+    }
+  })
+}
+function getRecentBlog(){
+  axios({
+    method:'get',
+    params:{
+      num:5,
+    },
+    url:'/getRecentBlog',
+  }).then(res=>{
+    for (let k = 0; k < 5; k++) {
+      recentBlog.value[k]=res.data.data[k];
+    }
+  })
+}
 function enterBlog(bid){
  /* window.location.href=*/
-  ElMessage.success("dadawd")
+  ElMessage.success("跳转到博客界面")
+  window.location.href="/#/blog/:bid";
 }
 onMounted(()=>{
+  getRecentBlog()
+  getHotBlog();
   getBlog();
 })
 
@@ -124,12 +188,28 @@ onMounted(()=>{
 
 
 <style scoped>
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+.hotBlog{
+  color: white;
+  cursor: pointer;
+}
 .asideCard{
   margin: 4%;
-  height: 130px;
+  height: 135px;
   background-color: #30484b;
   border: 0;
   border-radius: 10px;
+}
+.asideCard /deep/ .el-card__body{
+  padding: 10px 10px 20px;
+}
+.asideCard /deep/ .el-card__header{
+  padding: 10px 10px 10px 20px;
 }
 .zhuti{
   background-color: #465453;
@@ -143,6 +223,10 @@ onMounted(()=>{
   margin-top: 10px;
   margin-left: 10px;
   color: white;
+  cursor: pointer;
+}
+.blogContent{
+  cursor: pointer;
 }
 .card-header {
   float: left;
@@ -221,6 +305,6 @@ li {
   margin-right: 10px;
 }
 .infinite-list{
-  height: 500px;
+  height: 450px;
 }
 </style>
